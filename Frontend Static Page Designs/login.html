@@ -12,7 +12,9 @@
 
   <link rel="stylesheet" href="src/css/style.css">
   <script src="./src/js/tailwind.js"></script>
-
+  <script src="./src/js/jquery.min.js"></script>
+  <script src="src/js/theme.js"></script>
+  <script src="./src/js/exchange.js"></script>
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
 
@@ -25,22 +27,21 @@
      <nav class="bg-black">
         <div class="xl:container mx-auto px-3 sm:px-4 xl:px-2">
           <div class="flex flex-row justify-between text-white py-2 text-sm">
-
             <div class="flex flex-row border-b-2">
-               <p class="font-mono">BIST</p>
-                <p class="font-bold px-2">4.843,76</p>
-              </div>
-            <div class="flex flex-row border-b-2">
-              <p class="font-mono">Dolar</p>
-              <p class="font-bold px-2">18.81</p>
+              <p>Gram Altın&nbsp;</p>
+              <span class="value gram-altin font-bold"></span>
             </div>
             <div class="flex flex-row border-b-2">
-              <p>Euro</p>
-              <p class="font-bold px-2">20.11</p>
+              <p>EURO/TL&nbsp;</p>
+              <span class="value eur font-bold"></span>
             </div>
             <div class="flex flex-row border-b-2">
-              <p>Altın (gr)</p>
-              <p class="font-bold px-2">1.113,75</p>
+              <p>USD/TL&nbsp;</p>
+              <span class="value usd font-bold"></span>
+            </div>
+            <div class="flex flex-row border-b-2">
+              <p>ONS&nbsp;</p>
+              <span class="value ons font-bold"></span>
             </div>
           </div>
           <div class="flex justify-between">
@@ -288,8 +289,6 @@
     </svg>
   </a>
 
-  
-  <script src="src/js/theme.js"></script>
 
 </body>
 </html>
