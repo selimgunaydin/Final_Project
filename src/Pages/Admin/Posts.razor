@@ -1,0 +1,70 @@
+﻿@page "/admin/posts"
+@using MSS_NewsWeb.Pages.PagesHelperMethods
+@inject IJSRuntime jsRuntime;
+@inject IPostService _postService
+@inject ICommentService _commentService
+@inject NavigationManager NavManager
+
+
+<main class="mt-16 px-32 ">
+    <div class="flex flex-row justify-between items-center">
+        <p class="font-bold text-3xl text-gray-800 px-2 border-l-4 border-red-600">Haberler</p>
+        <a href="/admin/addpost"><button class="bg-gray-900 text-white p-4 text-xl rounded">Haber Ekle</button></a>
+
+    </div>
+    <div class="flex flex-col my-4">
+
+        @if (PostLists != null)
+        {
+            @foreach (var post in PostLists)
+            {
+                <div class="flex flex-row justify-between items-center mt-1 border">
+                    <img src="/src/Files/@post.MediaPath" alt="@post.Title" class="w-16">
+                    <p class="text-xl px-4">@post.Title</p>
+                    <div>
+                        <button @onclick="()=>Edit(post.Id)" class="bg-gray-700 text-white p-3">Düzenle</button>
+                        <button @onclick="()=>Remove(post)" class="bg-gray-500 text-white py-3 px-6">Sil</button>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+</main>
+
+@code {
+    public List<PostListDto> PostLists = new();
+    protected async override Task OnInitializedAsync()
+    {
+        var response = await _postService.GetAllAsync();
+        if(response.ResponseType == ResponseType.Success )
+        {
+            PostLists = response.Data;
+        }
+    }
+    public async Task Remove(PostListDto dto)
+    {
+        var result = await jsRuntime.InvokeAsync<bool>("confirm", "Haberi silmek istiyor musunuz?");
+        if (result)
+        {
+            var postcomments = await _commentService.GetAllAsync(x => x.PostId == dto.Id);
+            if(postcomments.ResponseType == ResponseType.Success)
+            {
+                foreach (var comment in postcomments.Data)
+                {
+                    var commentResponse = await _commentService.RemoveAsync(comment);
+                }
+            }
+            var response = await _postService.RemoveAsync(dto);
+            if (response.ResponseType == ResponseType.Success)
+            {
+                HelperMethods.RemoveFile(dto.MediaPath);
+                NavManager.NavigateTo("/admin/posts", true);
+            }
+        }
+    }
+    public void Edit(int id)
+    {
+        NavManager.NavigateTo($"/admin/editpost/{id}");
+    }
+}

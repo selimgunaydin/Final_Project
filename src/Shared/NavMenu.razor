@@ -1,0 +1,55 @@
+﻿
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    @*    <nav class="flex-column">
+    <div class="nav-item px-3">
+    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+    <span class="oi oi-home" aria-hidden="true"></span> Home
+    </NavLink>
+    </div>
+    <div class="nav-item px-3">
+    <NavLink class="nav-link" href="/admin/posts">
+    <span class="oi oi-plus" aria-hidden="true"></span> Posts
+    </NavLink>
+    </div>
+    <div class="nav-item px-3">
+    <NavLink class="nav-link" href="/admin/users">
+    <span class="oi oi-list-rich" aria-hidden="true"></span> Users
+    </NavLink>
+    </div>
+    <div class="nav-item px-3">
+    <NavLink class="nav-link" href="/admin/comments">
+    <span class="oi oi-list-rich" aria-hidden="true"></span> Comments
+    </NavLink>
+    </div>
+    </nav>*@
+    <div class="flex flex-row ">
+        <!-- nav menu -->
+        <ul class="navbar hidden lg:flex lg:flex-row text-gray-400 text-sm items-center font-bold ">
+            <li class="active relative border-l border-gray-800 hover:bg-gray-900">
+                <NavLink class="block py-3 px-6 border-b-2 border-transparent" href="/Home/Index">Ana Sayfa</NavLink>
+            </li>
+            <li class="relative border-l border-gray-800 hover:bg-gray-900">
+                <NavLink class="block py-3 px-6 border-b-2 border-transparent" href="/admin/posts">Haberler</NavLink>
+            </li>
+            <li class="relative border-l border-gray-800 hover:bg-gray-900">
+                <NavLink class="block py-3 px-6 border-b-2 border-transparent" href="/admin/comments">Yorumlar</NavLink>
+            </li>
+            <li class="relative border-l border-gray-800 hover:bg-gray-900">
+                <NavLink class="block py-3 px-6 border-b-2 border-transparent" href="/admin/users">Kullanıcılar</NavLink>
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
